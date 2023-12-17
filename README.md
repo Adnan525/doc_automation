@@ -13,4 +13,4 @@ Patrol time generation "p_time" is a dictionalry with keys -  "day_1" and "day_2
 - When both is_23 and is_0 is True, we go to "day_2"  
 
 # Screenshot  
-<img src="https://github.com/Adnan525/doc_automation/blob/main/doc_automation.png" alt="master function screenshot">  
+<img src="https://github.com/Adnan525/doc_automation/blob/main/doc_automation.PNG" alt="master function screenshot">  
