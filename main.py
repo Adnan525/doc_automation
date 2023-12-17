@@ -34,6 +34,14 @@ def update_template(template_path, output_path):
     _update_table_cell(first_table, 1, 1, current_date)
     _update_table_cell(first_table, 1, 3, current_day)
 
+    # second table 
+    second_table = template_doc.tables[1]
+    _print_table_contents(second_table)
+
+    # delete the rows except the first one
+    for row in second_table.rows[1:]:
+        second_table._element.remove(row._element)
+
     # Save the modified document
     template_doc.save(output_path)
 
