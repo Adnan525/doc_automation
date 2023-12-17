@@ -17,12 +17,13 @@ def collect_data():
     }
 
 def collect_data_master():
-    data = input("Enter details as replaced<s>starTime<s>finishTime<s>patrol-time : ")
+    data = input("Enter details as serialNo<s>replaced<s>starTime<s>finishTime<s>patrol-time : ")
     data = data.split(" ")
 
     return {
-        "replaced_officer" : data[0],
-        "start_time": int(data[1]),
-        "finish_time": int(data[2]),
-        "patrol_times": [int(time.strip()) for time in data[3].split("-")]
+        "serial_no" : data[0],
+        "replaced_officer" : data[1],
+        "start_time": int(data[2]),
+        "finish_time": int(data[3]),
+        "patrol_times": [int(time.strip()) for time in data[4].split("-")]
     }

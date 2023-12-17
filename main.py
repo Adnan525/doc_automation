@@ -2,6 +2,7 @@ from docx import Document
 from datetime import datetime
 from data_collection_util import collect_data_master, collect_data
 from generate_time import generate_time
+from docx.shared import Pt
 
  # dd-mm-yyyy format
 current_date = datetime.now().strftime("%d-%m-%Y")
@@ -53,23 +54,31 @@ def update_template(template_path, output_path):
     for time in times:
         # new row
         new_row = second_table.add_row()
+
         # set the value in the first column
-        new_row.cells[0].text = time
-        if is_first_row :
-            new_row.cells[1].text = f"Muntasir Adnan on-site, {data['replaced_officer']} left premises"
+        run_1 = new_row.cells[0].paragraphs[0].add_run()
+        font_size = Pt(13)
+        run_1.font.size = font_size
+        run_1.text = time
+
+        # set the value in the second column
+        run_2 = new_row.cells[1].paragraphs[0].add_run()
+        run_2.font.size = font_size
+
+        if is_first_row:
+            run_2.text = f"Muntasir Adnan on-site, {data['replaced_officer']} left premises"
         else:
             if int(time) % 100 == 0 or int(time) % 100 == 30:
-                new_row.cells[1].text = "Completed patrolling, checked all external doors. All doors are locked, nothing to report"
+                run_2.text = "Completed patrolling, checked all external doors. All doors are locked, nothing to report"
             else:
-                new_row.cells[1].text = f"MBN Patrol car completed external patrol at {time}-{str(int(time)+2).zfill(4)}"
+                run_2.text = f"MBN Patrol car completed external patrol at {time}-{str(int(time)+2).zfill(4)}"
+
         is_first_row = False
 
     # Save the modified document
     template_doc.save(output_path)
 
 if __name__ == "__main__":
-    data = collect_data_master()
-
     # template document
     template_path = "template.docx"
 
@@ -83,3 +92,5 @@ if __name__ == "__main__":
     update_template(template_path, output_shift)
 
     print(f"Modified document saved as: {output_summary} and {output_shift}")
+    # template_doc.save(f"{data['serial_no']}Sum Report {current_date} ({str(data['start_time']).zfill(4)}-{str(data['finish_time']).zfill(4)}).docx")
+    # template_doc.save(f"{current_date}.docx")
