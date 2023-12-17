@@ -1,5 +1,6 @@
 from docx import Document
 from datetime import datetime
+from data_collection_util import collect_data_master, collect_data
 
  # dd-mm-yyyy format
 current_date = datetime.now().strftime("%d-%m-%Y")
@@ -36,7 +37,7 @@ def update_template(template_path, output_path):
 
     # second table 
     second_table = template_doc.tables[1]
-    _print_table_contents(second_table)
+    # _print_table_contents(second_table)
 
     # delete the rows except the first one
     for row in second_table.rows[1:]:
@@ -46,6 +47,7 @@ def update_template(template_path, output_path):
     template_doc.save(output_path)
 
 if __name__ == "__main__":
+    data = collect_data_master()
 
     # template document
     template_path = "template.docx"
