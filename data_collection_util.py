@@ -15,7 +15,7 @@ def collect_data():
     }
 
 def collect_data_master():
-    data = input("Enter details as starTime<s>finishTime<s>patrol-time")
+    data = input("Enter details as starTime<s>finishTime<s>patrol-time : ")
     data = data.split(" ")
 
     return {
