@@ -1,6 +1,7 @@
 from docx import Document
 from datetime import datetime
 from data_collection_util import collect_data_master, collect_data
+from generate_time import generate_time
 
  # dd-mm-yyyy format
 current_date = datetime.now().strftime("%d-%m-%Y")
@@ -26,6 +27,9 @@ def _update_table_cell(table, row_index, col_index, new_value):
 
 def update_template(template_path, output_path):
 
+    # collect data
+    data = collect_data_master()
+
     # template
     template_doc = Document(template_path)
 
@@ -42,6 +46,23 @@ def update_template(template_path, output_path):
     # delete the rows except the first one
     for row in second_table.rows[1:]:
         second_table._element.remove(row._element)
+
+    # generate rows
+    times = generate_time(data["start_time"], data["finish_time"], data["patrol_times"])
+    is_first_row = True
+    for time in times:
+        # new row
+        new_row = second_table.add_row()
+        # set the value in the first column
+        new_row.cells[0].text = time
+        if is_first_row :
+            new_row.cells[1].text = f"Muntasir Adnan on-site, {data['replaced_officer']} left premises"
+        else:
+            if int(time) % 100 == 0 or int(time) % 100 == 30:
+                new_row.cells[1].text = "Completed patrolling, checked all external doors. All doors are locked, nothing to report"
+            else:
+                new_row.cells[1].text = f"MBN Patrol car completed external patrol at {time}-{str(int(time)+2).zfill(4)}"
+        is_first_row = False
 
     # Save the modified document
     template_doc.save(output_path)

@@ -1,5 +1,6 @@
 def collect_data():
     officer_name = input("Enter Security Officer's name: ")
+    replaced_officer = input("Enter Replaced Security Officer's name: ")
     license_no = input("Enter License No.: ")
     start_time = int(input("Enter Start time (24-hour format): "))
     finish_time = int(input("Enter Finish time (24-hour format): "))
@@ -8,6 +9,7 @@ def collect_data():
 
     return {
         "officer_name": officer_name,
+        "replaced_officer" : replaced_officer,
         "license_no": license_no,
         "start_time": start_time,
         "finish_time": finish_time,
@@ -15,11 +17,12 @@ def collect_data():
     }
 
 def collect_data_master():
-    data = input("Enter details as starTime<s>finishTime<s>patrol-time : ")
+    data = input("Enter details as replaced<s>starTime<s>finishTime<s>patrol-time : ")
     data = data.split(" ")
 
     return {
-        "start_time": data[0],
-        "finish_time": data[1],
-        "patrol_times": data[2].split("-")
+        "replaced_officer" : data[0],
+        "start_time": int(data[1]),
+        "finish_time": int(data[2]),
+        "patrol_times": [int(time.strip()) for time in data[3].split("-")]
     }
