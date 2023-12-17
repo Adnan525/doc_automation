@@ -26,7 +26,7 @@ def _update_table_cell(table, row_index, col_index, new_value):
     """
     table.cell(row_index, col_index).text = new_value
 
-def update_template(template_path, output_path):
+def update_template(template_path):
 
     # collect data
     data = collect_data_master()
@@ -50,6 +50,7 @@ def update_template(template_path, output_path):
 
     # generate rows
     times = generate_time(data["start_time"], data["finish_time"], data["patrol_times"])
+    print(times)
     is_first_row = True
     for time in times:
         # new row
@@ -76,21 +77,14 @@ def update_template(template_path, output_path):
         is_first_row = False
 
     # Save the modified document
-    template_doc.save(output_path)
+    template_doc.save(f"{data['serial_no']}Sum Report {current_date} ({str(data['start_time']).zfill(4)}-{str(data['finish_time']).zfill(4)}).docx")
+    template_doc.save(f"{current_date}.docx")
 
 if __name__ == "__main__":
     # template document
     template_path = "template.docx"
 
-    # output file
-    output_summary = "output_document.docx"
-    # date file
-    output_shift = f"{current_date}.docx"
-
     # Update the template and save the modified document
-    update_template(template_path, output_summary)
-    update_template(template_path, output_shift)
+    update_template(template_path)
 
-    print(f"Modified document saved as: {output_summary} and {output_shift}")
-    # template_doc.save(f"{data['serial_no']}Sum Report {current_date} ({str(data['start_time']).zfill(4)}-{str(data['finish_time']).zfill(4)}).docx")
-    # template_doc.save(f"{current_date}.docx")
+    print("============= Report Generated =============")

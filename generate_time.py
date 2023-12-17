@@ -13,14 +13,14 @@ def generate_time(start_time, finish_time, patrol_times):
     for val in patrol_times:
         if int(val / 100) == 23:
             check_if_23 = True
-        if int(val / 100) == 0:
+        if int(val / 100) != 23:
             check_if_0 = True
         if check_if_0 and check_if_23:
             p_times["day_2"].append(val)
         else:
             p_times["day_1"].append(val)
 
-    
+    print(p_times)
     # patrol activity
     times = {
         "day_1" : [start_time],
@@ -46,6 +46,7 @@ def generate_time(start_time, finish_time, patrol_times):
             times["day_1"].append(current_time)
         else:
             times["day_2"].append(current_time)
+    print(times)
 
     # finish_time does not need to be added since we increment and then add it so it will go to 0130 then 0200; and then break
     
@@ -75,3 +76,8 @@ def generate_time(start_time, finish_time, patrol_times):
 # print("Day 2 Patrol Times:", day_2_patrol_times)
 
 
+if __name__ == "__main__":
+    patrol_times = [2312,145,245,312,512]
+    print(generate_time(2200, 600, patrol_times))
+    # for val in patrol_times:
+    #     print(int(val/100))
