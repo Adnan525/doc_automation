@@ -30,6 +30,9 @@ def _update_table_cell(table, row_index, col_index, new_value):
 # collect data based on terminal flag
 def get_user_data(args):
     if args.master:
+        print("============= Master Function Enabled =============")
+        print("- Using predefined officer name and license no.")
+        print("============= Welcom Ad =============")
         return collect_data_master()
     else:
         return collect_data()
