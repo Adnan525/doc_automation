@@ -17,3 +17,7 @@ Patrol time generation "p_time" is a dictionalry with keys -  "day_1" and "day_2
 
 # Screenshot  
 <img src="https://github.com/Adnan525/doc_automation/blob/main/doc_automation.PNG" alt="master function screenshot">  
+  
+<img src="https://github.com/Adnan525/doc_automation/blob/main/collect_data.JPG" alt="collect_data">  
+  
+<img src="https://github.com/Adnan525/doc_automation/blob/main/collect_data_master.JPG" alt="collect_data_master">  
