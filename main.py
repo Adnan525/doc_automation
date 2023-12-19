@@ -83,7 +83,7 @@ def update_template(template_path):
         run_2.font.size = font_size
 
         if is_first_row:
-            run_2.text = f"Muntasir Adnan on-site, {data['replaced_officer']} left premises"
+            run_2.text = f"{data['officer_name']} on-site, {data['replaced_officer']} left premises"
         else:
             if int(time) % 100 == 0 or int(time) % 100 == 30:
                 run_2.text = "Completed patrolling, checked all external doors. All doors are locked, nothing to report"
