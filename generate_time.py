@@ -1,4 +1,4 @@
-def generate_time(start_time, finish_time, patrol_times):
+def generate_time(start_time, finish_time, patrol_times = []):
 
     current_time = start_time
     is_day_one = True

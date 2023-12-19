@@ -3,6 +3,7 @@ from datetime import datetime
 from data_collection_util import collect_data_master, collect_data
 from generate_time import generate_time
 from docx.shared import Pt
+import argparse
 
  # dd-mm-yyyy format
 current_date = datetime.now().strftime("%d-%m-%Y")
@@ -16,7 +17,7 @@ def _print_table_contents(table):
 
 def _update_table_cell(table, row_index, col_index, new_value):
     """
-        Row 1, Column 0: DATE
+        Row 1, Column 1: DATE
         Row 1, Column 3: DAY
         Row 2, Column 0: SECURITY OFFICER
         Row 2, Column 2: LICENSE NO.
@@ -26,10 +27,23 @@ def _update_table_cell(table, row_index, col_index, new_value):
     """
     table.cell(row_index, col_index).text = new_value
 
+# collect data based on terminal flag
+def get_user_data(args):
+    if args.master:
+        return collect_data_master()
+    else:
+        return collect_data()
+
+
 def update_template(template_path):
 
+    # parser
+    parser = argparse.ArgumentParser(description="Use the master function")
+    parser.add_argument("-m", "--master", action="store_true", help="Use collect_data_master()")
+    args = parser.parse_args()
+
     # collect data
-    data = collect_data_master()
+    data = get_user_data(args)
 
     # template
     template_doc = Document(template_path)
@@ -39,6 +53,8 @@ def update_template(template_path):
     # _print_table_contents(first_table)
     _update_table_cell(first_table, 1, 1, current_date)
     _update_table_cell(first_table, 1, 3, current_day)
+    _update_table_cell(first_table, 2, 1, data["officer_name"])
+    _update_table_cell(first_table, 2, 3, data["license_no"])
 
     # second table 
     second_table = template_doc.tables[1]
